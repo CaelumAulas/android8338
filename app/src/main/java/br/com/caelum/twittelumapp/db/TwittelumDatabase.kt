@@ -4,9 +4,10 @@ import android.arch.persistence.room.Database
 import android.arch.persistence.room.Room
 import android.arch.persistence.room.RoomDatabase
 import android.content.Context
+import br.com.caelum.twittelumapp.db.migrations.MigracaoDaVersao1Para2
 import br.com.caelum.twittelumapp.modelo.Tweet
 
-@Database(entities = [Tweet::class], version = 1)
+@Database(entities = [Tweet::class], version = 2)
 abstract class TwittelumDatabase : RoomDatabase() {
 
     abstract fun getTweetDao(): TweetDao
@@ -27,6 +28,7 @@ abstract class TwittelumDatabase : RoomDatabase() {
             return Room
                 .databaseBuilder(contexto, TwittelumDatabase::class.java, "TwittelumDB")
                 .allowMainThreadQueries()
+                .addMigrations(MigracaoDaVersao1Para2)
                 .build()
 
         }

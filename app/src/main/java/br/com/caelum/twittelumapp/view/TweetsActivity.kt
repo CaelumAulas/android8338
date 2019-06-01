@@ -6,8 +6,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
-import android.widget.ArrayAdapter
 import br.com.caelum.twittelumapp.R
+import br.com.caelum.twittelumapp.adapter.TweetAdapter
 import br.com.caelum.twittelumapp.modelo.Tweet
 import br.com.caelum.twittelumapp.vm.TweetViewModel
 import br.com.caelum.twittelumapp.vm.ViewModelFactory
@@ -24,9 +24,10 @@ class TweetsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_tweets)
 
-        viewModel.lista().observe(this, Observer { tweets ->
+        viewModel.lista().observe(this, Observer { tweets: List<Tweet>? ->
 
-            val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, tweets)
+            //val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, tweets)
+            val adapter = TweetAdapter(tweets!!)
 
             listaTweets.adapter = adapter
 
@@ -42,7 +43,7 @@ class TweetsActivity : AppCompatActivity() {
 
         fab.setOnClickListener {
 
-            val intencao = Intent(this, MainActivity::class.java)
+            val intencao = Intent(this, FormularioActivity::class.java)
 
             startActivity(intencao)
 
